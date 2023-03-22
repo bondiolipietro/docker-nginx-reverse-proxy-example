@@ -1,0 +1,14 @@
+{
+    "name": "cors-nginx-proxy-example",
+    "version": "1.0.0",
+    "author": "Pietro Bondioli",
+    "license": "MIT",
+    "scripts": {
+        "postinstall": "husky install"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^17.5.0",
+        "@commitlint/config-conventional": "^17.4.4",
+        "husky": "^8.0.3"
+    }
+}

@@ -1,0 +1,1 @@
+# Cors Nginx Proxy Example
