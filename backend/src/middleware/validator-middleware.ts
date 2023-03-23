@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 
-import config from "@/config/index";
+import { ApiConfig } from "@/config";
 import { getRoutes } from "@/routes/routes";
 import { BadRequestError } from "@/model/errors";
 
@@ -9,7 +9,7 @@ const routes = getRoutes();
 
 const getRoute = (path: string, method: string) =>
     routes.find(
-        (r) => `${config.api.base_path}${r.path}` === path && r.method === method.toLowerCase()
+        (r) => `${ApiConfig.API_BASE_PATH}${r.path}` === path && r.method === method.toLowerCase()
     );
 
 const getValidator = (path: string, method: string) => {

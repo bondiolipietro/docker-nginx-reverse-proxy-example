@@ -1,14 +1,26 @@
-import production from "./settings.json";
+import * as dotenv from "dotenv";
 
-let settings: typeof production;
+const envPath = {
+    development: ".env.development",
+    production: ".env",
+    test: ".env.test",
+};
 
-try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require, import/no-unresolved
-    const dev = require("./settings.local.json");
+dotenv.config({ path: envPath[process.env.NODE_ENV] });
 
-    settings = process.env.NODE_ENV !== "development" ? production : dev;
-} catch {
-    settings = production;
+class ApiConfig {
+    public static readonly API_BASE_PATH = process.env.API_BASE_PATH || "/api/v1";
+
+    public static readonly API_KEY = process.env.API_KEY || "";
+
+    public static readonly MONGO = {
+        CONNECTION_SCHEME: process.env.MONGO_CONNECTION_SCHEME || "mongodb",
+        HOST: process.env.MONGO_HOST || "localhost",
+        PORT: process.env.MONGO_PORT || "27017",
+        DB_NAME: process.env.MONGO_DB_NAME || "",
+        USERNAME: process.env.MONGO_USERNAME || "",
+        PASSWORD: process.env.MONGO_PASSWORD || "",
+    };
 }
 
-export default settings;
+export { ApiConfig };

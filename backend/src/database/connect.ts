@@ -1,15 +1,18 @@
 import mongoose from "mongoose";
 
-import config from "@/config/index";
+import { ApiConfig } from "@/config";
 
 const connectMongoDB = async () => {
-    const mongoUserPass = config.mongo.user ? `${config.mongo.user}:${config.mongo.password}@` : "";
+    const mongoUserPass = ApiConfig.MONGO.USERNAME
+        ? `${ApiConfig.MONGO.USERNAME}:${ApiConfig.MONGO.PASSWORD}@`
+        : "";
 
-    const mongoConnString = `${config.mongo.connection_str_scheme}://${mongoUserPass}${config.mongo.host}:${config.mongo.port}`;
+    const mongoConnString = `${ApiConfig.MONGO.CONNECTION_SCHEME}://${mongoUserPass}${ApiConfig.MONGO.HOST}:${ApiConfig.MONGO.PORT}`;
+
     console.info("Connecting to database...");
 
     await mongoose.connect(mongoConnString, {
-        dbName: config.mongo.db,
+        dbName: ApiConfig.MONGO.DB_NAME,
     });
 
     console.info("Connected to database");

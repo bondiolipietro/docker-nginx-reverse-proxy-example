@@ -1,8 +1,7 @@
-/* eslint-disable import/no-unresolved */
-import express from "express";
+import express, { json } from "express";
 import "express-async-errors";
 
-import config from "@/config/index";
+import { ApiConfig } from "@/config";
 import { router } from "@/routes/index";
 import {
     apiKeyAuthMiddleware,
@@ -36,7 +35,7 @@ class App {
     }
 
     setupPreRoutesMiddlewares() {
-        this.app.use(express.json());
+        this.app.use(json());
         this.app.use(loggerMiddleware);
         this.app.use(apiKeyAuthMiddleware);
         this.app.use(validateReqMiddleware);
@@ -47,7 +46,7 @@ class App {
     }
 
     setupRoutes() {
-        this.app.use(config.api.base_path, router);
+        this.app.use(ApiConfig.API_BASE_PATH, router);
     }
 
     async setupDatabase() {
@@ -57,4 +56,4 @@ class App {
 
 const app = new App();
 
-export { App, app };
+export { app };
