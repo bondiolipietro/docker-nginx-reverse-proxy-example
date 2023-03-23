@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 
-import { IUserFacade } from "@/facades/interfaces/IUserFacade";
-import userFacade from "@/facades/UserFacade";
+import { IUserFacade } from "@/facade/interfaces/IUserFacade";
+import userFacade from "@/facade/UserFacade";
 import {
     CreateUserReqType,
     CreateUserResType,

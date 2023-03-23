@@ -1,0 +1,6 @@
+{
+    "api": {
+        "base_path": "/api/v1",
+        "api_key": "#{API_KEY}"
+    }
+}
