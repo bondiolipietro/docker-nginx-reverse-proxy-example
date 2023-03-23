@@ -1,6 +1,6 @@
 import { Document, model, Schema, SchemaTimestampsConfig } from "mongoose";
 
-import { UserType } from "@/model/validators/UserValidator";
+import { UserType } from "@/model/validators";
 
 export type UserDocument = UserType & Document & SchemaTimestampsConfig;
 

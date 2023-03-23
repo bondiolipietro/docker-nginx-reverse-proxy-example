@@ -9,7 +9,7 @@ import {
     GetUserResType,
     UpdateUserReqType,
     UpdateUserResType,
-} from "@/model/validators/UserValidator";
+} from "@/model/validators";
 
 export interface IUserController {
     create: (req: CreateUserReqType, res: CreateUserResType) => Promise<CreateUserResType>;

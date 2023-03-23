@@ -1,12 +1,12 @@
 import { constants } from "http2";
 
-import userController from "@/controller/UserController";
+import { userController } from "@/controller/UserController";
 import { Route } from "@/model/Route";
 import {
     CreateUserReqValidator,
     GetUserReqValidator,
     UpdateUserReqValidator,
-} from "@/model/validators/UserValidator";
+} from "@/model/validators";
 
 const routes: Route[] = [];
 

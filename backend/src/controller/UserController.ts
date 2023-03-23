@@ -1,7 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 
-import { IUserFacade } from "@/facade/interfaces/IUserFacade";
-import userFacade from "@/facade/UserFacade";
+import { userFacade } from "@/facade/UserFacade";
 import {
     CreateUserReqType,
     CreateUserResType,
@@ -13,9 +12,10 @@ import {
     GetUserResType,
     UpdateUserReqType,
     UpdateUserResType,
-} from "@/model/validators/UserValidator";
+} from "@/model/validators";
 import { NotFoundError } from "@/model/errors";
 import { UserMapper } from "@/model/mappers";
+import { IUserFacade } from "@/facade/interfaces";
 
 import { IUserController } from "./interface/IUserController";
 
@@ -90,4 +90,4 @@ class UserController implements IUserController {
 
 const userController = new UserController(userFacade);
 
-export default userController;
+export { userController };

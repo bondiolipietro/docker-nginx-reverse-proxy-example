@@ -1,5 +1,5 @@
-import { UserDocument } from "../entities/User";
-import { UserType } from "../validators/UserValidator";
+import { UserType } from "@/model/validators";
+import { UserDocument } from "@/model/entities";
 
 class UserMapper {
     static toUserType(user: UserDocument): UserType {

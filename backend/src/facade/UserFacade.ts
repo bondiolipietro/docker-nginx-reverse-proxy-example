@@ -1,8 +1,8 @@
-import { UserType } from "@/model/validators/UserValidator";
-import { User } from "@/model/entities/User";
+import { User } from "@/model/entities";
+import { UserType } from "@/model/validators";
 import { ResourceAlreadyExistsError } from "@/model/errors";
 
-import { IUserFacade } from "./interfaces/IUserFacade";
+import { IUserFacade } from "./interfaces";
 
 class UserFacade implements IUserFacade {
     public create = async (user: UserType) => {
@@ -42,4 +42,4 @@ class UserFacade implements IUserFacade {
 
 const userFacade = new UserFacade();
 
-export default userFacade;
+export { userFacade };

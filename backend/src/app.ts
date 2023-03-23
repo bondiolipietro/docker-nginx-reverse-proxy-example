@@ -9,16 +9,19 @@ import {
     loggerMiddleware,
     validateReqMiddleware,
 } from "@/middleware";
-import { connectMongoDB } from "@/database/connect";
+import { MongoDB } from "@/database";
+import { IDatabase } from "@/database/interfaces";
 
 const DEFAULT_PORT = 3333;
 const PORT = process.env.PORT || DEFAULT_PORT;
 
 class App {
     private app: express.Application;
+    private database: IDatabase;
 
-    constructor() {
+    constructor(database: IDatabase) {
         this.app = express();
+        this.database = database;
     }
 
     async build() {
@@ -50,10 +53,10 @@ class App {
     }
 
     async setupDatabase() {
-        await connectMongoDB();
+        await this.database.connect();
     }
 }
 
-const app = new App();
+const app = new App(new MongoDB());
 
 export { app };
