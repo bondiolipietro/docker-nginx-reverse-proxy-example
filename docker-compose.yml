@@ -25,9 +25,10 @@ services:
             - PORT=3000
         profiles:
             - full
+            - backend-proxy
 
     mongodb:
-        hostname: mongo
+        hostname: mongodb
         image: mongo:latest
         restart: always
         environment:
@@ -37,11 +38,14 @@ services:
             - backend-network
         volumes:
             - mongodbData:/data/db
+        ports:
+            - 27017:27017
         profiles:
             - full
+            - backend-proxy
 
     nginx:
-        hostname: nginx
+        hostname: proxy
         build: ./nginx
         networks:
             - frontend-network
@@ -49,8 +53,11 @@ services:
         links:
             - frontend
             - backend
+        ports:
+            - 8888:80
         profiles:
             - full
+            - backend-proxy
 
     frontend:
         hostname: frontend
