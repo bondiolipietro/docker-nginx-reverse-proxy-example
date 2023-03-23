@@ -6,11 +6,8 @@
     "author": "Pietro Bondioli <dev@pietrobondioli.com.br>",
     "license": "MIT",
     "scripts": {
-        "build": "tsc && tsc-alias",
-        "postbuild": "cpy 'src/**/*' '!src/**/*.ts' dist --no-overwrite || true",
-        "start": "node dist/server.js",
-        "start:prod": "NODE_ENV=production npm run build && npm run start",
-        "start:dev": "NODE_ENV=development ts-node-dev --inspect --respawn --rs --transpile-only --ignore-watch node_modules -r tsconfig-paths/register src/server.ts",
+        "start:prod": "ts-node --transpile-only -r tsconfig-paths/register src/server.ts",
+        "start:dev": "ts-node-dev --inspect --respawn --rs --transpile-only --ignore-watch node_modules -r tsconfig-paths/register src/server.ts",
         "lint": "eslint \"**/*.+(ts|js)\"",
         "format": "prettier \"**/*.+(ts|js)\" --write"
     },

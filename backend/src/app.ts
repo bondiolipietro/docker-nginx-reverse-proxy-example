@@ -1,17 +1,16 @@
 /* eslint-disable import/no-unresolved */
 import express from "express";
 import "express-async-errors";
-import * as dotenv from "dotenv";
 
 import config from "@/config/index";
 import { router } from "@/routes/index";
-
 import {
     apiKeyAuthMiddleware,
     errorHandlerMiddleware,
     loggerMiddleware,
     validateReqMiddleware,
-} from "./middleware";
+} from "@/middleware";
+import { connectMongoDB } from "@/database/connect";
 
 const DEFAULT_PORT = 3333;
 const PORT = process.env.PORT || DEFAULT_PORT;
@@ -24,8 +23,8 @@ class App {
     }
 
     async build() {
-        dotenv.config();
-        this.setupDatabase();
+        console.log(process.env.NODE_ENV);
+        await this.setupDatabase();
         this.setupPreRoutesMiddlewares();
         this.setupRoutes();
         this.setupPosRoutesMiddlewares();
@@ -52,8 +51,8 @@ class App {
         this.app.use(config.api.base_path, router);
     }
 
-    setupDatabase() {
-        /* TODO Since database is not implemented yet, this method is empty */
+    async setupDatabase() {
+        await connectMongoDB();
     }
 }
 

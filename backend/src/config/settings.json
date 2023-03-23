@@ -2,5 +2,13 @@
     "api": {
         "base_path": "/api/v1",
         "api_key": "#{API_KEY}"
+    },
+    "mongo": {
+        "connection_str_scheme": "#{MONGO_CONNECTION_STR_SCHEME}",
+        "host": "#{MONGO_HOST}",
+        "port": "#{MONGO_PORT}",
+        "db": "#{MONGO_DB}",
+        "user": "#{MONGO_USER}",
+        "password": "#{MONGO_PASSWORD}"
     }
 }

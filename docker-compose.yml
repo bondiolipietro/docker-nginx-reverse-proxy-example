@@ -1,0 +1,66 @@
+version: '3.9'
+
+networks:
+    frontend-network:
+        driver: bridge
+    backend-network:
+        driver: bridge
+
+volumes:
+    mongodbData:
+        driver: local
+
+services:
+    backend:
+        hostname: backend
+        build: ./backend
+        networks:
+            - backend-network
+        depends_on:
+            - mongodb
+        links:
+            - mongodb
+        environment:
+            - NODE_ENV=${ENV}
+            - PORT=3000
+        profiles:
+            - full
+
+    mongodb:
+        hostname: mongo
+        image: mongo:latest
+        restart: always
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=admin
+            - MONGO_INITDB_ROOT_PASSWORD=admin
+        networks:
+            - backend-network
+        volumes:
+            - mongodbData:/data/db
+        profiles:
+            - full
+
+    nginx:
+        hostname: nginx
+        build: ./nginx
+        networks:
+            - frontend-network
+            - backend-network
+        links:
+            - frontend
+            - backend
+        profiles:
+            - full
+
+    frontend:
+        hostname: frontend
+        build: ./frontend
+        networks:
+            - frontend-network
+        ports:
+            - 3000:3000
+        environment:
+            - NODE_ENV=${ENV}
+            - PORT=3000
+        profiles:
+            - full
