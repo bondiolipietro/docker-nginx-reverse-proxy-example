@@ -7,10 +7,11 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "eslint --ignore-path .gitignore \"**/*.+(ts|js|tsx)\"",
-        "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write"
+        "lint": "eslint --ignore-path ../.gitignore \"**/*.+(ts|js|tsx)\"",
+        "format": "prettier --ignore-path ../.gitignore \"**/*.+(ts|js|tsx)\" --write"
     },
     "dependencies": {
+        "@tanstack/react-query": "4.28.0",
         "@types/node": "18.15.5",
         "@types/react": "18.0.28",
         "@types/react-dom": "18.0.11",
