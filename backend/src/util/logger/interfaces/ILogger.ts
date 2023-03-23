@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface ILogger {
     info(message: string, ...meta: any[]): void;
     warn(message: string, ...meta: any[]): void;

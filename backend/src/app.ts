@@ -7,6 +7,7 @@ import {
     apiKeyAuthMiddleware,
     errorHandlerMiddleware,
     loggerMiddleware,
+    rateLimiter,
     validateReqMiddleware,
 } from "@/middleware";
 import { mongoDB } from "@/database";
@@ -44,6 +45,7 @@ class App {
     setupPreRoutesMiddlewares() {
         this.app.use(json());
         this.app.use(loggerMiddleware);
+        this.app.use(rateLimiter);
         this.app.use(apiKeyAuthMiddleware);
         this.app.use(validateReqMiddleware);
     }
