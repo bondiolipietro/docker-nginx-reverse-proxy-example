@@ -21,6 +21,11 @@ class ApiConfig {
         USERNAME: process.env.MONGO_USERNAME || "",
         PASSWORD: process.env.MONGO_PASSWORD || "",
     };
+
+    public static readonly GRAYLOG = {
+        HOST: process.env.GRAYLOG_HOST || "",
+        PORT: process.env.GRAYLOG_PORT || "",
+    };
 }
 
 export { ApiConfig };

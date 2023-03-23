@@ -1,9 +1,9 @@
-import { format, transports } from "winston";
 import { logger } from "express-winston";
 
+import { wLogger } from "@/util/logger";
+
 const loggerMiddleware = logger({
-    transports: [new transports.Console()],
-    format: format.combine(format.colorize(), format.json()),
+    winstonInstance: wLogger._logger,
 });
 
 export { loggerMiddleware };

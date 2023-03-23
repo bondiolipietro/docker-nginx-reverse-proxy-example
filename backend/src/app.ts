@@ -9,8 +9,10 @@ import {
     loggerMiddleware,
     validateReqMiddleware,
 } from "@/middleware";
-import { MongoDB } from "@/database";
+import { mongoDB } from "@/database";
 import { IDatabase } from "@/database/interfaces";
+import { ILogger } from "@/util/logger/interfaces";
+import { wLogger } from "@/util/logger";
 
 const DEFAULT_PORT = 3333;
 const PORT = process.env.PORT || DEFAULT_PORT;
@@ -18,10 +20,12 @@ const PORT = process.env.PORT || DEFAULT_PORT;
 class App {
     private app: express.Application;
     private database: IDatabase;
+    private logger: ILogger;
 
-    constructor(database: IDatabase) {
+    constructor(database: IDatabase, logger: ILogger) {
         this.app = express();
         this.database = database;
+        this.logger = logger;
     }
 
     async build() {
@@ -33,7 +37,7 @@ class App {
 
     start() {
         this.app.listen(PORT, () => {
-            console.info(`Server listening on port: ${PORT}`);
+            this.logger.info(`Server listening on port: ${PORT}`);
         });
     }
 
@@ -57,6 +61,6 @@ class App {
     }
 }
 
-const app = new App(new MongoDB());
+const app = new App(mongoDB, wLogger);
 
 export { app };
