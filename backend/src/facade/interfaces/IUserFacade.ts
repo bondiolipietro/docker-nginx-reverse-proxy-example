@@ -1,13 +1,14 @@
-import { UserType } from "@/model/validators/UserValidator";
+import { UserDocument } from "@/model/entities/User";
+import { PartialUserType, UserType } from "@/model/validators/UserValidator";
 
 export interface IUserFacade {
-    create: (user: UserType) => Promise<UserType>;
+    create: (user: PartialUserType) => Promise<UserDocument>;
 
-    update: (id: string, user: UserType) => Promise<UserType>;
+    update: (id: string, user: UserType) => Promise<UserDocument>;
 
-    delete: (id: string) => Promise<UserType>;
+    delete: (id: string) => Promise<UserDocument>;
 
-    get: (id: string) => Promise<UserType>;
+    get: (id: string) => Promise<UserDocument>;
 
-    getAll: () => Promise<UserType[]>;
+    getAll: (skip: number, limit: number) => Promise<UserDocument[]>;
 }

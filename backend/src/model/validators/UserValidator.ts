@@ -45,7 +45,7 @@ export type GetAllUsersResType = Response<UserType[]>;
 // Create
 
 export const CreateUserReqValidator = z.object({
-    body: UserValidator,
+    body: PartialUserValidator,
 });
 
 export type CreateUserReqType = z.infer<typeof CreateUserReqValidator>;

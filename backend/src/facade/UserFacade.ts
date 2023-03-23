@@ -1,26 +1,42 @@
 import { UserType } from "@/model/validators/UserValidator";
+import { User } from "@/model/entities/User";
+import { ResourceAlreadyExistsError } from "@/model/errors";
 
 import { IUserFacade } from "./interfaces/IUserFacade";
 
 class UserFacade implements IUserFacade {
     public create = async (user: UserType) => {
-        throw new Error("Method not implemented.");
+        if (await User.findOne({ email: user.email }).exec()) {
+            throw new ResourceAlreadyExistsError("User");
+        }
+        const newUser = new User(user);
+        await newUser.save();
+
+        return newUser;
     };
 
     public update = async (id: string, user: UserType) => {
-        throw new Error("Method not implemented.");
+        const userToUpdate = User.findByIdAndUpdate(id, user, { new: true }).exec();
+
+        return userToUpdate;
     };
 
     public delete = async (id: string) => {
-        throw new Error("Method not implemented.");
+        const userToDelete = await User.findByIdAndDelete(id).exec();
+
+        return userToDelete;
     };
 
     public get = async (id: string) => {
-        throw new Error("Method not implemented.");
+        const user = await User.findById(id).exec();
+
+        return user;
     };
 
-    public getAll = async () => {
-        throw new Error("Method not implemented.");
+    public getAll = async (skip: number, limit: number) => {
+        const users = await User.find().skip(skip).limit(limit).exec();
+
+        return users;
     };
 }
 

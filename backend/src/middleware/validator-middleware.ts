@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { ZodError } from "zod";
 
 import config from "@/config/index";
 import { getRoutes } from "@/routes/routes";
@@ -19,16 +20,22 @@ const getValidator = (path: string, method: string) => {
     return null;
 };
 
-const validateReqMiddleware = (req: Request, _: Response, next: NextFunction) => {
+const validateReqMiddleware = async (req: Request, _: Response, next: NextFunction) => {
     const validator = getValidator(req.path, req.method);
     if (validator !== null) {
-        Object.entries(validator).forEach(([location, schema]) => {
-            try {
-                schema.validateSync(req[location]);
-            } catch (error) {
-                return next(new BadRequestError(error.message));
+        try {
+            await validator.parseAsync(req);
+        } catch (e) {
+            let errorMessage = e.message;
+
+            if (e instanceof ZodError) {
+                errorMessage = e.issues
+                    .map((error) => `${error.message}: ${error.path.join(".")}`)
+                    .join(", ");
             }
-        });
+
+            throw new BadRequestError(errorMessage);
+        }
     }
     return next();
 };

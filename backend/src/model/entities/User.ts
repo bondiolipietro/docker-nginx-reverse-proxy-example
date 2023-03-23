@@ -1,8 +1,10 @@
-import { model, Schema } from "mongoose";
+import { Document, model, Schema, SchemaTimestampsConfig } from "mongoose";
 
 import { UserType } from "@/model/validators/UserValidator";
 
-const UserSchema = new Schema<UserType>(
+export type UserDocument = UserType & Document & SchemaTimestampsConfig;
+
+const UserSchema = new Schema<UserDocument>(
     {
         name: { type: String, required: true },
         email: { type: String, required: true },
@@ -13,6 +15,6 @@ const UserSchema = new Schema<UserType>(
     }
 );
 
-const User = model<UserType>("User", UserSchema);
+const User = model<UserDocument>("User", UserSchema);
 
 export { User };

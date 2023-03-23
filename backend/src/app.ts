@@ -23,7 +23,6 @@ class App {
     }
 
     async build() {
-        console.log(process.env.NODE_ENV);
         await this.setupDatabase();
         this.setupPreRoutesMiddlewares();
         this.setupRoutes();
@@ -32,7 +31,7 @@ class App {
 
     start() {
         this.app.listen(PORT, () => {
-            console.info(`server listening on port: ${PORT}`);
+            console.info(`Server listening on port: ${PORT}`);
         });
     }
 

@@ -11,7 +11,6 @@ const normalizeError = (err: Error) => {
     return {
         message: err.message,
         status: StatusCodes.INTERNAL_SERVER_ERROR,
-        ...err,
     };
 };
 

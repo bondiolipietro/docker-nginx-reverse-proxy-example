@@ -14,6 +14,8 @@ import {
     UpdateUserReqType,
     UpdateUserResType,
 } from "@/model/validators/UserValidator";
+import { NotFoundError } from "@/model/errors";
+import { UserMapper } from "@/model/mappers";
 
 import { IUserController } from "./interface/IUserController";
 
@@ -27,64 +29,62 @@ class UserController implements IUserController {
     public create = async (req: CreateUserReqType, res: CreateUserResType) => {
         const user = req.body;
 
-        try {
-            const createdUser = await this.userFacade.create(user);
+        const createdUser = await this.userFacade.create(user);
 
-            return res.status(StatusCodes.CREATED).json(createdUser);
-        } catch (error) {
-            return res.status(StatusCodes.BAD_REQUEST).json(error);
-        }
+        return res.status(StatusCodes.CREATED).json(UserMapper.toUserType(createdUser));
     };
 
     public update = async (req: UpdateUserReqType, res: UpdateUserResType) => {
         const { id } = req.params;
         const { name, email, profilePicture } = req.body;
 
-        try {
-            const updatedUser = await this.userFacade.update(id, {
-                name,
-                email,
-                profilePicture,
-            });
+        const updatedUser = await this.userFacade.update(id, {
+            name,
+            email,
+            profilePicture,
+        });
 
-            return res.status(StatusCodes.OK).json(updatedUser);
-        } catch (error) {
-            return res.status(StatusCodes.BAD_REQUEST).json(error);
+        if (!updatedUser) {
+            throw new NotFoundError("User");
         }
+
+        return res.status(StatusCodes.OK).json(UserMapper.toUserType(updatedUser));
     };
 
     public delete = async (req: DeleteUserReqType, res: DeleteUserResType) => {
         const id = req.params.id;
 
-        try {
-            const deletedUser = await this.userFacade.delete(id);
+        const deletedUser = await this.userFacade.delete(id);
 
-            return res.status(StatusCodes.OK).json(deletedUser);
-        } catch (error) {
-            return res.status(StatusCodes.BAD_REQUEST).json(error);
+        if (!deletedUser) {
+            throw new NotFoundError("User");
         }
+
+        return res.status(StatusCodes.OK).json(UserMapper.toUserWithOnlyId(deletedUser));
     };
 
     public get = async (req: GetUserReqType, res: GetUserResType) => {
         const id = req.params.id;
 
-        try {
-            const user = await this.userFacade.get(id);
+        const user = await this.userFacade.get(id);
 
-            return res.status(StatusCodes.OK).json(user);
-        } catch (error) {
-            return res.status(StatusCodes.BAD_REQUEST).json(error);
+        if (!user) {
+            throw new NotFoundError("User");
         }
+
+        return res.status(StatusCodes.OK).json(UserMapper.toUserType(user));
     };
 
     public getAll = async (req: GetAllUsersReqType, res: GetAllUsersResType) => {
-        try {
-            const users = await this.userFacade.getAll();
+        const { skip = 0, limit = 20 } = req.query;
 
-            return res.status(StatusCodes.OK).json(users);
-        } catch (error) {
-            return res.status(StatusCodes.BAD_REQUEST).json(error);
+        const users = await this.userFacade.getAll(skip, limit);
+
+        if (!users) {
+            throw new NotFoundError("Users");
         }
+
+        return res.status(StatusCodes.OK).json(users.map((user) => UserMapper.toUserType(user)));
     };
 }
 
