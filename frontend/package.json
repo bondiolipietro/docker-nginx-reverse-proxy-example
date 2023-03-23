@@ -1,7 +1,7 @@
 {
     "name": "frontend",
     "version": "0.1.0",
-    "author": "Pietro Bondioli",
+    "author": "Pietro Bondioli <dev@pietrobondioli.com.br>",
     "license": "MIT",
     "scripts": {
         "dev": "next dev",
