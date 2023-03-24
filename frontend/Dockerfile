@@ -16,13 +16,15 @@ RUN npm install
 
 COPY --chown=node:node . .
 
-ARG PORT
-
-ENV PORT=$PORT
-
-# Default to production
-ARG NODE_ENV=production
+ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
+
+# for some reason that only god knows, I need to overwrite the .env file since nextjs doesn't read the env vars according to the NODE_ENV
+COPY --chown=node:node .env.${NODE_ENV} .env
+
+ARG PORT
+ENV PORT $PORT
+
 
 RUN npm run build
 

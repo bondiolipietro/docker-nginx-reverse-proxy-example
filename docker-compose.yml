@@ -15,16 +15,18 @@ volumes:
 services:
     backend:
         hostname: backend
-        build: ./backend
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+            args:
+                - NODE_ENV=${NODE_ENV}
+                - PORT=${BACKEND_PORT}
         networks:
             - backend-network
         depends_on:
             - mongodb
         links:
             - mongodb
-        environment:
-            - NODE_ENV=${ENV}
-            - PORT=3000
         profiles:
             - full
             - backend-proxy
@@ -63,14 +65,16 @@ services:
 
     frontend:
         hostname: frontend
-        build: ./frontend
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+            args:
+                - NODE_ENV=${NODE_ENV}
+                - PORT=${FRONTEND_PORT}
         networks:
             - frontend-network
         ports:
-            - 3000:3000
-        environment:
-            - NODE_ENV=${ENV}
-            - PORT=3000
+            - ${FRONTEND_PORT}:${FRONTEND_PORT}
         profiles:
             - full
 

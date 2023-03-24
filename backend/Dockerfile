@@ -21,7 +21,8 @@ ARG PORT
 ENV PORT=$PORT
 
 # Default to production
-ARG NODE_ENV=production
-ENV NODE_ENV $NODE_ENV
+ARG NODE_ENV
+RUN echo $NODE_ENV
+ENV NODE_ENV=$NODE_ENV
 
 ENTRYPOINT [ "npm", "run", "start:prod" ]

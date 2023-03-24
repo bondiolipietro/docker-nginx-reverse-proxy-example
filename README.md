@@ -45,7 +45,7 @@ The frontend has 3 pages: Home, About, Users. The Users page is the most importa
 - [Docker Compose](https://docs.docker.com/compose/)
 - [Node.js](https://nodejs.org/en/) (optional)
 
-All the env variables needed to run the project are in the `.env.test` files in the root folder of each service. You can change them if you want, but it's not necessary.
+All the env variables needed to run the project are in the `.env.development` files in the root folder of each service. You can change them if you want, but it's not necessary.
 
 ### Running
 
