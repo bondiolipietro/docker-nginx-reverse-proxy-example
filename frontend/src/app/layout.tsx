@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 
+import 'react-toastify/dist/ReactToastify.css';
 import "@/styles/globals.css";
 import Providers from "./providers";
 
@@ -11,10 +12,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
-            <body className="min-h-screen">
+            <body className="min-h-svh max-h-svh overflow-hidden">
                 <Providers>
                     <Navbar />
-                    <main className="w-full p-4 md:p-8 lg:p-12 xl:p-14 2xl:p-16">{children}</main>
+                    <main className="w-full h-full p-4 md:p-8 lg:p-12 xl:p-14 2xl:p-16">{children}</main>
                 </Providers>
             </body>
         </html>

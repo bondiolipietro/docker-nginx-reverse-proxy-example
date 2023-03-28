@@ -14,12 +14,6 @@ export const Navbar: React.FC = () => {
                 >
                     About
                 </Link>
-                <Link
-                    href="/users"
-                    className="py-3 px-6 text-gray-600 hover:text-blue-400 duration-300"
-                >
-                    Users
-                </Link>
             </div>
         </nav>
     );
